@@ -9,7 +9,6 @@ class HomeProvider extends GetConnect {
     try {
       String getUrl = ApiConfig.getCategory;
       Response response = await get(getUrl);
-      print(response.body);
       if (response.statusCode == 200) {
         return categoryModelFromJson(response.body["categories"]);
       }
@@ -23,7 +22,6 @@ class HomeProvider extends GetConnect {
     try {
       String getUrl = ApiConfig.getNearbyService;
       Response response = await get(getUrl);
-      print(response.body);
       if (response.statusCode == 200 && response.body["status"] == 200) {
         return nearbyServiceModelFromJson(response.body["nearbyservices"]);
       }

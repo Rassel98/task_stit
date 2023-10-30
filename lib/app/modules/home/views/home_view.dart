@@ -6,6 +6,7 @@ import 'package:task_app/app/data/api_config.dart';
 import 'package:task_app/app/data/models/category_model.dart';
 
 import '../controllers/home_controller.dart';
+import 'cat_data_view.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -26,9 +27,9 @@ class HomeView extends GetView<HomeController> {
             : SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                child: controller.nearbyServiceList.isEmpty && controller.categoryList.isEmpty
+                child: controller.categoryList.isEmpty
                     ? Center(
-                      child: Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -48,7 +49,7 @@ class HomeView extends GetView<HomeController> {
                             )
                           ],
                         ),
-                    )
+                      )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -73,7 +74,12 @@ class HomeView extends GetView<HomeController> {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () => Get.to(
+                                      () => CategoryDataList(
+                                            categoryModel: model,
+                                          ),
+                                      transition: Transition.leftToRight,
+                                      duration: const Duration(milliseconds: 360)),
                                   child: Ink(
                                     // padding: const EdgeInsets.only(top: 14, left: 8, right: 8),
                                     decoration: BoxDecoration(
@@ -119,58 +125,58 @@ class HomeView extends GetView<HomeController> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
-                            "Nearby Service :",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ListView.builder(
-                            itemCount: controller.nearbyServiceList.length,
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final model = controller.nearbyServiceList[index];
-                              return Card(
-                                elevation: 2,
-                                child: ListTile(
-                                  // shape: RoundedRectangleBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   side: const BorderSide(color: Colors.black),
-                                  // ),
-                                  leading: CachedNetworkImage(
-                                    imageUrl: ApiConfig.baseUrl + model.img.toString(),
-                                    placeholder: (context, url) => const Icon(Icons.network_cell_outlined),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    width: 40,
-                                    height: 40,
-                                  ),
-                                  style: ListTileStyle.list,
-                                  title: Text(
-                                    model.name ?? "",
-                                    maxLines: 1,
-                                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, overflow: TextOverflow.ellipsis, color: Colors.black),
-                                  ),
-                                  subtitle: Text(
-                                    model.servicename ?? "",
-                                    maxLines: 2,
-                                    style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis, fontSize: 13, color: Colors.black54),
-                                  ),
-                                  trailing: Text(
-                                    model.number ?? "",
-                                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Colors.black),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          Visibility(
-                            visible: controller.nearbyServiceList.isEmpty,
-                            child: SizedBox(
-                              height: Get.height * 0.55084,
-                            ),
-                          )
+                          // const Text(
+                          //   "Nearby Service :",
+                          //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
+                          // ),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // ListView.builder(
+                          //   itemCount: controller.nearbyServiceList.length,
+                          //   shrinkWrap: true,
+                          //   physics: const ClampingScrollPhysics(),
+                          //   itemBuilder: (context, index) {
+                          //     final model = controller.nearbyServiceList[index];
+                          //     return Card(
+                          //       elevation: 2,
+                          //       child: ListTile(
+                          //         // shape: RoundedRectangleBorder(
+                          //         //   borderRadius: BorderRadius.circular(10),
+                          //         //   side: const BorderSide(color: Colors.black),
+                          //         // ),
+                          //         leading: CachedNetworkImage(
+                          //           imageUrl: ApiConfig.baseUrl + model.img.toString(),
+                          //           placeholder: (context, url) => const Icon(Icons.network_cell_outlined),
+                          //           errorWidget: (context, url, error) => const Icon(Icons.error),
+                          //           width: 40,
+                          //           height: 40,
+                          //         ),
+                          //         style: ListTileStyle.list,
+                          //         title: Text(
+                          //           model.name ?? "",
+                          //           maxLines: 1,
+                          //           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, overflow: TextOverflow.ellipsis, color: Colors.black),
+                          //         ),
+                          //         subtitle: Text(
+                          //           model.servicename ?? "",
+                          //           maxLines: 2,
+                          //           style: const TextStyle(fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis, fontSize: 13, color: Colors.black54),
+                          //         ),
+                          //         trailing: Text(
+                          //           model.number ?? "",
+                          //           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Colors.black),
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          // Visibility(
+                          //   visible: controller.nearbyServiceList.isEmpty,
+                          //   child: SizedBox(
+                          //     height: Get.height * 0.55084,
+                          //   ),
+                          // )
                         ],
                       ),
               ),

@@ -13,6 +13,9 @@ class HomeController extends GetxController {
 
   final _nearbyServiceList = <NearbyServiceModel>[].obs;
   List<NearbyServiceModel> get nearbyServiceList => _nearbyServiceList;
+
+  Rx<List<NearbyServiceModel>> _shortedNearbyServiceList = Rx<List<NearbyServiceModel>>([]);
+  List<NearbyServiceModel> get shortedNearbyServiceList => _shortedNearbyServiceList.value;
   @override
   void onInit() async {
     super.onInit();
@@ -57,5 +60,11 @@ class HomeController extends GetxController {
       print(e.toString());
     }
     isLoading(false);
+  }
+
+  void getServiceByCategory({required String servicecategoryId}) {
+    _shortedNearbyServiceList.value=[];
+    _shortedNearbyServiceList.value =
+        nearbyServiceList != [] ? nearbyServiceList.where((element) => element.servicecategoryId.toString() == servicecategoryId.toString()).toList() : [];
   }
 }
